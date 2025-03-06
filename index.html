@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片水印工具</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧上传区域 -->
+        <div class="upload-section">
+            <div class="dropzone" id="dropzone">
+                <div class="upload-hint">
+                    <i class="upload-icon">📁</i>
+                    <p>拖拽文件或文件夹到此处</p>
+                    <div class="upload-buttons">
+                        <button class="upload-btn" id="uploadFiles">选择文件</button>
+                        <button class="upload-btn" id="uploadFolder">选择文件夹</button>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" multiple accept="image/*" hidden>
+                <input type="file" id="folderInput" multiple accept="image/*" webkitdirectory directory hidden>
+            </div>
+            <div class="thumbnail-list" id="thumbnailList">
+                <!-- 缩略图将在这里动态生成 -->
+            </div>
+            <div class="selection-info">
+                已选择: <span id="selectedCount">0</span> 个文件
+            </div>
+        </div>
+
+        <!-- 中间预览区域 -->
+        <div class="preview-section">
+            <div class="preview-container" id="previewContainer">
+                <canvas id="previewCanvas"></canvas>
+            </div>
+            <div class="zoom-controls">
+                <button id="zoomOut">-</button>
+                <span id="zoomLevel">100%</span>
+                <button id="zoomIn">+</button>
+            </div>
+        </div>
+
+        <!-- 右侧控制面板 -->
+        <div class="control-panel">
+            <div class="control-group">
+                <label>水印文字</label>
+                <input type="text" id="watermarkText" placeholder="输入水印文字">
+            </div>
+
+            <div class="control-group">
+                <label>位置</label>
+                <div class="position-grid">
+                    <!-- 9宫格位置选择器 -->
+                    <div class="position-cell" data-position="top-left"></div>
+                    <div class="position-cell" data-position="top"></div>
+                    <div class="position-cell" data-position="top-right"></div>
+                    <div class="position-cell" data-position="left"></div>
+                    <div class="position-cell" data-position="center"></div>
+                    <div class="position-cell" data-position="right"></div>
+                    <div class="position-cell" data-position="bottom-left"></div>
+                    <div class="position-cell" data-position="bottom"></div>
+                    <div class="position-cell" data-position="bottom-right"></div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>间距调节</label>
+                <div class="spacing-controls">
+                    <div>
+                        <label>X轴</label>
+                        <input type="range" id="spacingX" min="0" max="100" value="10">
+                    </div>
+                    <div>
+                        <label>Y轴</label>
+                        <input type="range" id="spacingY" min="0" max="100" value="10">
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>字体设置</label>
+                <select id="fontFamily">
+                    <option value="Arial">Arial</option>
+                    <option value="微软雅黑">微软雅黑</option>
+                    <option value="宋体">宋体</option>
+                </select>
+                <input type="range" id="fontSize" min="12" max="72" value="24">
+                <input type="color" id="fontColor" value="#000000">
+                <input type="range" id="opacity" min="0" max="100" value="100">
+            </div>
+
+            <div class="control-group">
+                <label>旋转角度</label>
+                <input type="range" id="rotation" min="0" max="360" value="0">
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="action-bar">
+        <button id="downloadSingle">下载当前图片</button>
+        <button id="downloadAll">批量下载</button>
+        <button id="reset">重置</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
